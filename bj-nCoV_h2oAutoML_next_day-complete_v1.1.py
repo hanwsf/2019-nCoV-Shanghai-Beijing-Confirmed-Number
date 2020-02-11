@@ -28,6 +28,7 @@ y_test=train_df[13:].totalPlus1d
 train=train_df[:13].drop(['date'],axis=1)
 train= h2o.H2OFrame.from_python(train)
 y = 'totalPlus1d'
+#增加训练时间才可以有好的模型出来。
 aml = H2OAutoML(max_runtime_secs=600,seed=1,verbosity='info',include_algos = ["DeepLearning"])#max_runtime_secs=4800
 aml.train(y=y, training_frame=train)
 # Look at Leaderboard (will have more or fewer models, depending on the hardware used)
@@ -49,8 +50,8 @@ saved_model=h2o.save_model(aml.leader,
 print(saved_model)
 
 aml.leader
-data=pd.read_csv('data/bj-nCoV-2-4-pre-add.csv')
-test_new= h2o.H2OFrame.from_python(data.tail(1).drop(['date','totalPlus1d],axis=1))
+data=pd.read_csv('data/bj-nCoV-2-10-pre-add.csv')
+test_new= h2o.H2OFrame.from_python(data.tail(1).drop(['date','totalPlus1d'],axis=1))
 preds = aml.leader.predict(test_new)
 print('predict finished')
 pred = preds.as_data_frame(use_pandas=True, header=True) 
@@ -61,51 +62,55 @@ print('beijing today 5th Feb 12-24hrs patients number is: ',int(pred0) )
 saved_model0 = h2o.load_model(saved_model)
 # saved_model0 = h2o.load_model('bj-ncov_model_pre/DeepLearning_grid_1_AutoML_20200208_153836_model_38')
 data=pd.read_csv('data/bj-nCoV-2-10-pre-add.csv')
-test_new= h2o.H2OFrame.from_python(data[data.date=='2月4日'].drop(['date','totalPlus1d],axis=1))
+test_new= h2o.H2OFrame.from_python(data[data.date=='2月4日'].drop(['date','totalPlus1d'],axis=1))
+
 preds = saved_model0.predict(test_new)
 print('predict finished')
 pred = preds.as_data_frame(use_pandas=True, header=True) 
 pred0=pred.predict
 print('Beijing today 5th Feb 12-24hrs patients number is: ',round(pred0) )
 
-test_new= h2o.H2OFrame.from_python(data[data.date=='2月5日'].drop(['date','totalPlus1d],axis=1))
+test_new= h2o.H2OFrame.from_python(data[data.date=='2月5日'].drop(['date','totalPlus1d'],axis=1))
 preds = saved_model0.predict(test_new)
 print('predict finished')
 pred = preds.as_data_frame(use_pandas=True, header=True) 
 pred0=pred.predict
 print('Beijing today 6th Feb 12-24hrs patients number is: ',round(pred0) )
 
-test_new= h2o.H2OFrame.from_python(data[data.date=='2月6日'].drop(['date','totalPlus1d],axis=1))
+test_new= h2o.H2OFrame.from_python(data[data.date=='2月6日'].drop(['date','totalPlus1d'],axis=1))
 preds = saved_model0.predict(test_new)
 print('predict finished')
 pred = preds.as_data_frame(use_pandas=True, header=True) 
 pred0=pred.predict
 print('Beijing today 7th Feb 12-24hrs patients number is: ',round(pred0) )
 
-test_new= h2o.H2OFrame.from_python(data[data.date=='2月7日'].drop(['date','totalPlus1d],axis=1))
+test_new= h2o.H2OFrame.from_python(data[data.date=='2月7日'].drop(['date','totalPlus1d'],axis=1))
 preds = saved_model0.predict(test_new)
 print('predict finished')
 pred = preds.as_data_frame(use_pandas=True, header=True) 
 pred0=pred.predict
 print('Beijing today 8th Feb 12-24hrs patients number is: ',round(pred0) )
 
-test_new= h2o.H2OFrame.from_python(data[data.date=='2月8日'].drop(['date','totalPlus1d],axis=1))
+test_new= h2o.H2OFrame.from_python(data[data.date=='2月8日'].drop(['date','totalPlus1d'],axis=1))
 preds = saved_model0.predict(test_new)
 print('predict finished')
 pred = preds.as_data_frame(use_pandas=True, header=True) 
 pred0=pred.predict
 print('Beijing today 9th Feb 12-24hrs patients number is: ',round(pred0) )
 
-test_new= h2o.H2OFrame.from_python(data[data.date=='2月9日'].drop(['date','totalPlus1d],axis=1))
+test_new= h2o.H2OFrame.from_python(data[data.date=='2月9日'].drop(['date','totalPlus1d'],axis=1))
 preds = saved_model0.predict(test_new)
 print('predict finished')
 pred = preds.as_data_frame(use_pandas=True, header=True) 
 pred0=pred.predict
 print('Beijing today 10th Feb 12-24hrs patients number is: ',round(pred0) )
 
-test_new= h2o.H2OFrame.from_python(data[data.date=='2月10日'].drop(['date','totalPlus1d],axis=1))
+test_new= h2o.H2OFrame.from_python(data[data.date=='2月10日'].drop(['date','totalPlus1d'],axis=1))
 preds = saved_model0.predict(test_new)
 print('predict finished')
 pred = preds.as_data_frame(use_pandas=True, header=True) 
 pred0=pred.predict
 print('Beijing today 11th Feb 12-24hrs patients number is: ',round(pred0) )
+
+
+# %%

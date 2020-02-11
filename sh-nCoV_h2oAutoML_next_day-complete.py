@@ -30,6 +30,7 @@ y_test=train_df[13:].totalPlus1d
 train=train_df.drop(['date','from_hubeiPlus1d'],axis=1)
 train= h2o.H2OFrame.from_python(train)
 y = 'totalPlus1d'
+#增加训练时间才可以有好的模型出来。
 aml = H2OAutoML(max_runtime_secs=600, seed=1) #max_runtime_secs=4800, max_models=50
 aml.train(y=y, training_frame=train)
 print(aml.leaderboard)
